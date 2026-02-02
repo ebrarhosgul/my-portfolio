@@ -1,8 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  
-  const baseUrl = 'https://my-portfolio-wheat-six-13.vercel.app';
+  const baseUrl = 'ebrarhosgul.com';
 
   return [
     {
@@ -11,12 +10,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    
-    
-    
-    
-    
-    
-    
   ];
 }

@@ -17,7 +17,7 @@ const fugazOne = Fugaz_One({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://my-portfolio-wheat-six-13.vercel.app/'),
+  metadataBase: new URL('https://ebrarhosgul.com/'),
 
   title: {
     default: 'Ebrar Hosgul | Frontend Developer & UI Architect',
@@ -27,13 +27,16 @@ export const metadata: Metadata = {
     'Frontend Developer & UI Architect specializing in Next.js, React, and high-performance web applications. Building scalable, pixel-perfect digital experiences.',
   applicationName: 'Ebrar Hosgul Portfolio',
   keywords: [
+    'Ebrar Hosgul',
+    'Ebrar Hoşgül',
+    'Ebrar Muhammed Hosgul',
+    'Ebrar Muhammed Hoşgül',
     'Frontend Developer',
     'React Developer',
     'Next.js',
     'TypeScript',
     'UI/UX Design',
     'Web Performance',
-    'Ebrar Hosgul',
     'Portfolio',
   ],
   authors: [{ name: 'Ebrar Hosgul', url: 'https://github.com/ebrarhosgul' }],
@@ -103,6 +106,10 @@ export default function RootLayout({
               }
             `,
           }}
+        />
+        <meta
+          name="google-site-verification"
+          content="-w63sB81slRzeAH6ZC9WHe4U4EcUF7mcbL_2_Y7Vt8E"
         />
       </head>
 
