@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Ebrar Hosgul Portfolio',
     short_name: 'Ebrar Hosgul',
-    description: 'Frontend Developer & UI Architect Portfolio',
+    description: 'Frontend Engineer & UI Architect Portfolio',
     start_url: '/',
     display: 'standalone',
     background_color: '#000000',

@@ -1,4 +1,4 @@
-# Ebrar Hosgul | Frontend Developer & UI Architect
+# Ebrar Hosgul | Frontend Engineer & UI Architect
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -94,7 +94,7 @@ It is designed not just as a showcase of projects, but as a testament to **web p
 
 ## 🤝 Contact
 
-I am currently open to Frontend Developer roles where I can contribute to scalable products.
+I am currently open to Frontend Engineer roles where I can contribute to scalable products.
 
 LinkedIn: [Ebrar Muhammed Hosgul](https://www.linkedin.com/in/ebrarhosgul)
 

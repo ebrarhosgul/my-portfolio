@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ebrarhosgul.com/'),
 
   title: {
-    default: 'Ebrar Hosgul | Frontend Developer & UI Architect',
+    default: 'Ebrar Hosgul | Frontend Engineer & UI Architect',
     template: '%s | Ebrar Hosgul',
   },
   description:
-    'Frontend Developer & UI Architect specializing in Next.js, React, and high-performance web applications. Building scalable, pixel-perfect digital experiences.',
+    'Frontend Engineer & UI Architect specializing in Next.js, React, and high-performance web applications. Building scalable, pixel-perfect digital experiences.',
   applicationName: 'Ebrar Hosgul Portfolio',
   keywords: [
     'Ebrar Hosgul',
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     'Ebrar Muhammed Hosgul',
     'Ebrar Muhammed Hoşgül',
     'Frontend Developer',
+    'Frontend Engineer',
     'React Developer',
     'Next.js',
     'TypeScript',
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Ebrar Hosgul | Frontend Developer & UI Architect',
+    title: 'Ebrar Hosgul | Frontend Engineer & UI Architect',
     description:
       'Building scalable, high-performance web applications with Next.js. Explore the portfolio of Ebrar Hosgul.',
     url: '/',
@@ -66,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ebrar Hosgul | Frontend Developer',
+    title: 'Ebrar Hosgul | Frontend Engineer',
     description:
-      'Frontend Developer & UI Architect specializing in Next.js and modern web technologies.',
+      'Frontend Engineer & UI Architect specializing in Next.js and modern web technologies.',
     images: ['/images/og-image.png'],
   },
   robots: {
