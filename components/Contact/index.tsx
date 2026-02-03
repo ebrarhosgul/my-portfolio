@@ -65,6 +65,15 @@ function SubmitButton({
         });
       }
     }
+
+    if (!isSuccess && buttonRef.current) {
+      gsap.to(buttonRef.current, {
+        x: 0,
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    }
   }, [isSuccess]);
 
   const isDisabled = isPending || isSuccess;
@@ -76,7 +85,7 @@ function SubmitButton({
       disabled={isDisabled}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative w-full h-[68px] md:w-auto md:min-w-[200px] px-10 py-5 font-bold text-lg rounded-full overflow-hidden transition-all duration-500 disabled:cursor-not-allowed group cursor-pointer ${
+      className={`relative w-full h-[68px] md:w-auto md:min-w-[200px] px-10 py-5 font-bold text-lg rounded-full overflow-hidden disabled:cursor-not-allowed group cursor-pointer transition-[background-color,color,scale] duration-500 ${
         isSuccess
           ? 'bg-emerald-500 text-white scale-[1.02]'
           : 'bg-white text-black'
@@ -109,7 +118,6 @@ function SubmitButton({
           <Image
             src={mailSending}
             alt="Sending..."
-            placeholder="blur"
             className="h-12 w-auto object-contain"
           />
         </span>
