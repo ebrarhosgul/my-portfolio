@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useActionState, useEffect } from 'react';
+import { useRef, useActionState, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
@@ -8,12 +8,20 @@ import { sendEmail } from '@/actions/contact';
 import { trackEvent } from '@/lib/analytics';
 import mailSending from '@/assets/images/mail-sending.webp';
 
-function SubmitButton({ isPending }: { isPending: boolean }) {
+function SubmitButton({
+  isPending,
+  isSuccess,
+}: {
+  isPending: boolean;
+  isSuccess: boolean;
+}) {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const checkmarkRef = useRef<SVGSVGElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = buttonRef.current;
-    if (!btn) return;
+
+    if (!btn || isPending || isSuccess) return;
 
     const rect = btn.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
@@ -28,6 +36,8 @@ function SubmitButton({ isPending }: { isPending: boolean }) {
   };
 
   const handleMouseLeave = () => {
+    if (isPending || isSuccess) return;
+
     gsap.to(buttonRef.current, {
       x: 0,
       y: 0,
@@ -36,18 +46,45 @@ function SubmitButton({ isPending }: { isPending: boolean }) {
     });
   };
 
+  useEffect(() => {
+    if (isSuccess && checkmarkRef.current) {
+      const path = checkmarkRef.current.querySelector('path');
+
+      if (path) {
+        const length = path.getTotalLength();
+
+        gsap.set(path, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 0.5,
+          delay: 0.2,
+          ease: 'power2.out',
+        });
+      }
+    }
+  }, [isSuccess]);
+
+  const isDisabled = isPending || isSuccess;
+
   return (
     <button
       ref={buttonRef}
       type="submit"
-      disabled={isPending}
+      disabled={isDisabled}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[68px] md:w-auto md:min-w-[200px] px-10 py-5 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-colors disabled:cursor-not-allowed group cursor-pointer"
+      className={`relative w-full h-[68px] md:w-auto md:min-w-[200px] px-10 py-5 font-bold text-lg rounded-full overflow-hidden transition-all duration-500 disabled:cursor-not-allowed group cursor-pointer ${
+        isSuccess
+          ? 'bg-emerald-500 text-white scale-[1.02]'
+          : 'bg-white text-black'
+      }`}
     >
       <span
         className={`relative z-10 flex items-center justify-center gap-3 h-full transition-opacity duration-200 ${
-          isPending ? 'opacity-0' : 'opacity-100'
+          isPending || isSuccess ? 'opacity-0' : 'opacity-100'
         }`}
       >
         Send Message
@@ -77,6 +114,27 @@ function SubmitButton({ isPending }: { isPending: boolean }) {
           />
         </span>
       )}
+
+      {isSuccess && (
+        <span className="absolute inset-0 flex items-center justify-center gap-2 z-20 animate-fadeIn">
+          <svg
+            ref={checkmarkRef}
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={3}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          <span className="font-semibold">Submitted</span>
+        </span>
+      )}
     </button>
   );
 }
@@ -84,6 +142,7 @@ function SubmitButton({ isPending }: { isPending: boolean }) {
 export default function Contact() {
   const containerRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [state, formAction, isPending] = useActionState(sendEmail, {
     success: false,
@@ -154,6 +213,14 @@ export default function Contact() {
     if (state.success && formRef.current) {
       formRef.current.reset();
       trackEvent('contact_message_sent', { success: true });
+
+      setShowSuccess(true);
+
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
     }
   }, [state.success]);
 
@@ -266,14 +333,10 @@ export default function Contact() {
               <input type="text" name="trap" tabIndex={-1} autoComplete="off" />
             </div>
             <div className="contact-form-item pt-4">
-              <SubmitButton isPending={isPending} />
+              <SubmitButton isPending={isPending} isSuccess={showSuccess} />
 
-              {state.message && (
-                <p
-                  className={`mt-4 text-sm ${state.success ? 'text-green-400' : 'text-red-400'}`}
-                >
-                  {state.message}
-                </p>
+              {state.message && !state.success && (
+                <p className="mt-4 text-sm text-red-400">{state.message}</p>
               )}
             </div>
           </form>
